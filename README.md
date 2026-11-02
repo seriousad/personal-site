@@ -33,6 +33,7 @@ npm run preview
 - `src/layouts/BaseLayout.astro` — общие метаданные, canonical, hreflang и JSON-LD.
 - `public/` — favicon, robots.txt, sitemap.xml и заголовки HTTP.
 - `wrangler.jsonc` — конфигурация статического хостинга Cloudflare.
+- `workers/www-redirect/` — небольшой Worker, перенаправляющий `www.kndg.online` на основной домен с сохранением пути и параметров запроса.
 
 Изображение для предпросмотра ссылки: `public/social-card.svg` (исходник) и `public/social-card.png` (готовый файл). После редактирования SVG пересоздать PNG командой `npm run social:generate`; для этого нужен установленный Chromium из Playwright. Обычная сборка браузера не требует.
 
@@ -63,7 +64,7 @@ npm test
    - Node.js: 24 (при необходимости переменная сборки `NODE_VERSION=24`).
 4. Для веток включить preview builds и использовать предусмотренный Cloudflare режим превью. При настройке через version uploads команда: `npx wrangler versions upload` после сборки.
 5. Домен `kndg.online` уже указан в `routes` файла `wrangler.jsonc` как Custom Domain. При деплое Cloudflare настроит DNS и HTTPS; DNS-зона должна быть в том же Cloudflare-аккаунте.
-6. В DNS создать проксируемую запись для `www` (например, CNAME `www` → `kndg.online`) и в **Rules → Redirect Rules** настроить постоянный редирект `www.kndg.online` → `https://kndg.online` с сохранением пути и query string.
+6. Опубликовать редирект с `www`: `npm run deploy:www`. Он использует отдельный Worker и Custom Domain; DNS и HTTPS создаются Cloudflare автоматически. `npm run deploy` публикует и сайт, и редирект.
 
 Не нужно добавлять Cloudflare API Token в GitHub Secrets: сборку и публикацию выполняет интеграция Cloudflare.
 
@@ -74,7 +75,7 @@ npx wrangler login
 npm run deploy
 ```
 
-Только готовые файлы `dist/` отправляются в Cloudflare. Worker script не используется: страницы генерируются при сборке и раздаются как Static Assets. Вызовов LLM или внешних API при открытии сайта нет.
+Основной сайт публикуется из готовых файлов `dist/`: страницы генерируются при сборке и раздаются как Static Assets, без вызовов Worker script. Отдельный Worker выполняет только HTTP-редирект для `www`. Вызовов LLM или внешних API при открытии сайта нет.
 
 ## Поведение
 

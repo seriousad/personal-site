@@ -10,7 +10,8 @@
     "check": "astro check",
     "test": "playwright test",
     "social:generate": "node scripts/generate-social-card.mjs",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy && npm run deploy:www",
+    "deploy:www": "wrangler deploy --config workers/www-redirect/wrangler.jsonc",
     "deploy:preview": "npm run build && wrangler versions upload"
   },
   "dependencies": {

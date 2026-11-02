@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+import type { Project } from '../data/profile';
+interface Props { project: Project; expand: string; contributionLabel: string; }
+const { project, expand, contributionLabel } = Astro.props;
+---
+<article class:list={['project-card', `project-${project.variant}`]}>
+  <div class="project-art" aria-hidden="true">
+    <span class="art-label">{project.category}</span><span class="art-number">/{project.number}</span>
+    {project.variant === 'medical' && <div class="medical-graphic"><svg viewBox="0 0 270 190" fill="none"><g transform="translate(26 24) rotate(-5 105 74)"><rect x="7" y="9" width="210" height="148" rx="6" fill="#aec39222" /><rect class="document-sheet" width="210" height="148" rx="6" /><text class="document-top" x="17" y="26">patient.record</text><path class="document-line" d="M17 43h120M17 51h75" /><path class="waveform" d="M17 87h30l6-6 8 12 10-24 12 32 11-21 8 7h36l6-8 7 15 10-22 9 15h26" /><path class="document-rule" d="M17 112h176" /><circle cx="20" cy="127" r="2" fill="#788d54" /><text class="document-bottom" x="28" y="130">data → insight</text></g><g transform="rotate(7 235 51)"><rect class="medical-cross" x="215" y="31" width="40" height="40" rx="11" /><path class="medical-cross-mark" d="M235 41v20m-10-10h20" /></g></svg></div>}
+    {project.variant === 'agents' && <div class="family-graphic"><svg viewBox="0 0 340 170" fill="none"><path class="family-branches" d="M170 35v35H80v35m90-35h90v35M80 110v30H35m45-30v30h45m135-30v30h-45m45-30v30h45" /><circle class="family-node family-root" cx="170" cy="28" r="20" /><path class="family-search" d="m166 32-4 4m14-11a5 5 0 1 1-10 0 5 5 0 0 1 10 0" /><circle class="family-node" cx="80" cy="102" r="20" /><circle class="family-node" cx="260" cy="102" r="20" /><text x="80" y="107" text-anchor="middle">A</text><text x="260" y="107" text-anchor="middle">B</text>{[35, 125, 215, 305].map(x => <circle class="family-leaf" cx={x} cy="140" r="6.5" />)}</svg></div>}
+    {project.variant === 'pipeline' && <div class="pipeline-graphic"><div class="pipeline-service source-service"><span>▶</span><small>source</small></div><span class="pipeline-connector">···<span>→</span></span><div class="pipeline-queue"><span></span><span></span><span></span><small>queue</small></div><span class="pipeline-connector">···<span>→</span></span><div class="pipeline-service target-service"><span>vk</span><small>target</small></div></div>}
+    {project.variant === 'career' && <div class="career-graphic"><svg viewBox="0 0 340 190" fill="none"><path class="career-connection" d="M132 96h36V54h34m-34 42v42h34" /><rect class="career-panel" x="20" y="34" width="112" height="124" rx="7" /><circle class="career-avatar" cx="76" cy="69" r="19" /><circle class="career-person" cx="76" cy="65" r="5" /><path class="career-person" d="M67 79c0-11 18-11 18 0" /><path class="career-lines" d="M43 106h66m-66 10h48m-48 10h58" /><rect class="career-panel" x="202" y="28" width="118" height="52" rx="7" /><rect class="career-panel" x="202" y="112" width="118" height="52" rx="7" /><path class="career-lines" d="M217 45h57m-57 11h82m-82 73h68m-68 11h82" /><circle class="career-match" cx="168" cy="96" r="10" /><path class="career-check" d="m164 96 3 3 5-6" /><text x="76" y="179" text-anchor="middle">candidate</text><text x="261" y="185" text-anchor="middle">opportunities</text></svg></div>}
+    <span class="art-footnote">{project.variant === 'medical' ? 'MEDICAL DATA / AGENT WORKFLOWS' : project.variant === 'agents' ? 'ARCHIVAL DATA / AGENT ORCHESTRATION' : project.variant === 'career' ? 'VACANCIES / APPLICATIONS / INTEGRATIONS' : 'ASYNC PROCESSING / DATA MIGRATION'}</span>
+  </div>
+  <div class="project-body">
+    <div class="project-meta"><span class="project-company">{project.company}</span><span aria-hidden="true">·</span><span>{project.role}</span></div>
+    <h3>{project.title}</h3>
+    <p class="project-description">{project.description}</p>
+    <div class="project-contribution"><span>{contributionLabel}</span><p>{project.contribution}</p></div>
+    <ul class="tags" aria-label="Stack">{project.tags.map(tag => <li>{tag}</li>)}</ul>
+    <details><summary>{expand}<span class="details-plus"><Icon name="plus" size={18} /></span></summary><ul class="project-details">{project.details.map(detail => <li>{detail}</li>)}</ul></details>
+  </div>
+</article>

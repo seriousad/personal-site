@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { content } from '../data/profile';
+---
+<BaseLayout lang="en" title="404 — kndg.online" noindex>
+  <main class="not-found container"><a class="wordmark" href="/">kndg<span class="wordmark-dot">.</span></a><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>{content.en.notFound.title}</h1><p>{content.en.notFound.text}</p><a class="button button-primary" href="/">{content.en.notFound.back}<Icon name="arrow" /></a><div lang="ru" class="not-found-translation"><p>{content.ru.notFound.title} {content.ru.notFound.text}</p><a href="/ru/" class="text-link">{content.ru.notFound.back}<Icon name="arrow" size={16} /></a></div></main>
+</BaseLayout>

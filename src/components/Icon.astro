@@ -1,0 +1,23 @@
+---
+interface Props {
+  name: 'arrow' | 'external' | 'down' | 'sun' | 'moon' | 'copy' | 'pin' | 'code' | 'layers' | 'spark' | 'plus' | 'mail' | 'workflow';
+  size?: number;
+}
+const { name, size = 20 } = Astro.props;
+const paths: Record<Props['name'], string> = {
+  arrow: 'M4 12h16m-6-6 6 6-6 6',
+  external: 'M6 18 18 6M6 6h12v12',
+  down: 'M12 4v16m-6-6 6 6 6-6',
+  sun: 'M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0',
+  moon: 'M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z',
+  copy: 'M9 9h11v11H9zM15 9V4H4v11h5',
+  pin: 'M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0ZM14 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0',
+  code: 'm8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16',
+  layers: 'm12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5',
+  spark: 'm12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z',
+  plus: 'M12 5v14M5 12h14',
+  mail: 'M3 5h18v14H3zM3 5l9 8 9-8',
+  workflow: 'M9 2h6v6H9zM2 16h6v6H2zm14 0h6v6h-6zM12 8v4M5 16v-4h14v4',
+};
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={paths[name]} /></svg>

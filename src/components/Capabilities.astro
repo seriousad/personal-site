@@ -1,0 +1,43 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  items: { title: string; text: string; stack: string }[];
+}
+const { items } = Astro.props;
+const icons = ['spark', 'code', 'workflow', 'layers'] as const;
+---
+<div class="capabilities">
+  {items.map((item, index) => (
+    <details class="capability" open>
+      <summary>
+        <span class="capability-icon"><Icon name={icons[index]} size={24} /></span>
+        <h3>{item.title}</h3>
+        <span class="mono capability-number" aria-hidden="true">0{index + 1}</span>
+        <span class="capability-toggle"><Icon name="plus" size={17} /></span>
+      </summary>
+      <div class="capability-body">
+        <p>{item.text}</p>
+        <span class="capability-stack mono">{item.stack}</span>
+      </div>
+    </details>
+  ))}
+</div>
+
+<script>
+  const items = [...document.querySelectorAll<HTMLDetailsElement>('.capability')];
+  const mobileLayout = window.matchMedia('(max-width: 600px)');
+  const setLayout = () => items.forEach(item => { item.open = !mobileLayout.matches; });
+  mobileLayout.addEventListener('change', setLayout);
+  setLayout();
+
+  let beforePrint: boolean[] | undefined;
+  window.addEventListener('beforeprint', () => {
+    beforePrint = items.map(item => item.open);
+    items.forEach(item => { item.open = true; });
+  });
+  window.addEventListener('afterprint', () => {
+    items.forEach((item, index) => { item.open = beforePrint?.[index] ?? !mobileLayout.matches; });
+    beforePrint = undefined;
+  });
+</script>

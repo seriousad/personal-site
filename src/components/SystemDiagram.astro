@@ -1,0 +1,58 @@
+---
+interface Props { caption: string; }
+const { caption } = Astro.props;
+---
+<div class="system-diagram" aria-hidden="true">
+  <div class="diagram-toolbar"><span class="diagram-dot"></span><span>SYSTEM / OVERVIEW</span><span class="diagram-version">v.01</span></div>
+  <div class="diagram-canvas">
+    <svg class="diagram-compact" viewBox="0 0 440 128" fill="none">
+      <path class="diagram-line" d="M122 52h43m110 0h43" />
+      <path class="diagram-line line-dashed" d="M220 76v17" />
+      <g class="diagram-node"><rect x="12" y="28" width="110" height="48" rx="6" /><text x="67" y="57" text-anchor="middle">request</text></g>
+      <g class="diagram-node node-agent"><rect x="165" y="28" width="110" height="48" rx="6" /><text class="agent-title" x="220" y="58" text-anchor="middle">AI agent</text></g>
+      <g class="diagram-node"><rect x="318" y="28" width="110" height="48" rx="6" /><text x="373" y="57" text-anchor="middle">result</text></g>
+      <g class="diagram-side"><text x="220" y="111" text-anchor="middle">context + tools</text></g>
+    </svg>
+    <svg class="diagram-graph" viewBox="0 0 440 370" fill="none">
+      <path class="diagram-line" d="M220 78v52m0 75v84M91 113h13v54h21m190 0h57v55" />
+      <path class="diagram-line line-dashed" d="M68 90V53h58m269 192h15v69h-96" />
+      <circle class="flow-dot" cx="220" cy="104" r="4" />
+      <circle class="flow-dot dot-secondary" cx="220" cy="254" r="4" />
+
+      <g class="diagram-node node-input">
+        <rect x="126" y="28" width="188" height="50" rx="6" />
+        <text class="node-marker" x="140" y="59">↳</text>
+        <text x="165" y="58">request</text>
+        <text class="node-type" x="299" y="58" text-anchor="end">input</text>
+      </g>
+      <g class="diagram-side side-context">
+        <rect x="45" y="90" width="46" height="46" rx="8" />
+        <g class="diagram-side-icon" transform="translate(58 103)"><circle cx="11" cy="8" r="5" /><path d="m7 12-4 4" /></g>
+        <text x="68" y="154" text-anchor="middle">context</text>
+        <text class="side-type" x="68" y="168" text-anchor="middle">RAG / DATA</text>
+      </g>
+      <g class="diagram-node node-agent">
+        <rect x="125" y="130" width="190" height="75" rx="6" />
+        <path class="agent-symbol" d="M154 151v32m-16-16h32m-27-11 22 22m-22 0 22-22" />
+        <text class="agent-title" x="180" y="162">AI agent</text>
+        <text class="agent-description" x="180" y="181">reason · plan · act</text>
+        <circle class="agent-status" cx="298" cy="144" r="2.5" />
+      </g>
+      <g class="diagram-side side-tools">
+        <rect x="349" y="222" width="46" height="46" rx="8" />
+        <g class="diagram-side-icon" transform="translate(362 234)"><path d="M6 6h8v10H6zm0 0H3a3 3 0 1 1 3-3v16a3 3 0 1 1-3-3h14a3 3 0 1 1-3 3V3a3 3 0 1 1 3 3h-3" /></g>
+        <text x="372" y="286" text-anchor="middle">tools</text>
+        <text class="side-type" x="372" y="300" text-anchor="middle">API / SERVICES</text>
+      </g>
+      <g class="diagram-node node-output">
+        <rect x="126" y="289" width="188" height="50" rx="6" />
+        <path class="output-check" d="m140 314 4 4 8-9" />
+        <text x="165" y="319">result</text>
+        <text class="node-type" x="299" y="319" text-anchor="end">output</text>
+      </g>
+      <text class="canvas-coordinate" x="426" y="19" text-anchor="end">x: 024</text>
+      <text class="canvas-coordinate" x="14" y="356">y: 128</text>
+    </svg>
+  </div>
+  <div class="diagram-caption"><span class="caption-bracket">[</span><span>{caption}</span><span class="caption-bracket">]</span></div>
+</div>

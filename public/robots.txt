@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kndg.online/sitemap.xml
